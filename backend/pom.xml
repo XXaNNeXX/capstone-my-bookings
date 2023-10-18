@@ -20,7 +20,6 @@
         <sonar.projectName>xxannexx_capstone-my-bookings_backend</sonar.projectName>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
