@@ -1,42 +1,240 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@font-face {
+    font-family: 'Cooper';
+    src: url('./assets/CooperFiveOpti-Black.otf');
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+    display: block;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.top-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.header {
+    background-color: #74cada;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 5em;
 }
 
-.card {
-  padding: 2em;
+.right-header-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 0.5em;
 }
 
-.read-the-docs {
-  color: #888;
+#apt5 {
+    color: white;
+    font-family: Cooper, sans-serif;
+    text-align: center;
+    font-size: 2em;
+}
+
+#home-button, #finance-button {
+    background-color: white;
+    color: #74cada;
+    padding: 0.4em;
+    margin: 0.5em;
+    height: 1.5em;
+    border-radius: 20%;
+}
+
+.headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+#my-bookings-headline, #new-booking {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+    color: #393C3C;
+}
+
+#add-booking-button  {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+    height: 2em;
+}
+
+#fa-circle-xmark {
+    margin: 1em 0 0.5em 1em;
+    height: 2em;
+    color: #74cada;
+}
+
+main {
+    position: relative;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    color: #393C3C;
+}
+
+.cards {
+    margin-top: 0;
+}
+
+.box {
+    border-style: solid;
+    border-color: #74cada;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 1px #74cada;
+    margin: 1em 2em 2em 2em;
+    padding: 1.2em;
+    color: #393C3C;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    row-gap: 0.3em;
+}
+
+.homepage-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 0.5em;
+}
+
+.homepage-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 0.5em;
+}
+
+.hyphen {
+    margin: 0;
+}
+
+.homepage-numbers {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 0.5em;
+}
+
+p {
+    margin: 0.4em;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 3em 1.5em 3em;
+}
+
+label {
+    margin: 1em 0 0.5em 0;
+    color: #393C3C;
+}
+
+input {
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    width: 90%;
+    height: 2.5em;
+    margin: 0 0 0.5em 0;
+    padding: 0.2em 1em;
+}
+
+textarea {
+    resize: vertical;
+    overflow: auto;
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    min-height: 10em;
+}
+
+h3 {
+    margin: 1em 0 0.5em 0;
+    color: #a8a8a8;
+}
+
+.financials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 3em 1.5em 3em;
+}
+
+.financials-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 4em;
+}
+
+.financials-sub-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 5em;
+}
+
+.financials-sub-group p {
+    margin: 0.5em 0 1em 0;
+}
+
+#empty {
+    margin: 0 3em 10em 3em;
+}
+
+footer {
+    background-color: #74cada;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1em;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    height: 3.5em;
+}
+
+.footer-text-left {
+    color: white;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    font-size: 1.2em;
+}
+
+.footer-text-right {
+    color: white;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    font-size: 1.2em;
+    border-style: solid;
+    border-color: white;
+    border-radius: 20%;
+}
+
+#sum-bookings {
+    padding: 0.2em;
+    margin: 0.1em 0.8em;
+}
+
+button {
+    background-color: white;
+    color: #393C3C;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    border-radius: 8px;
+    border: 2px solid lightgray;
+    height: 2.5em;
+    width: 8em;
 }
