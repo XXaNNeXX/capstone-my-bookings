@@ -10,8 +10,8 @@ export default function Form(props: Props) {
     const [name, setName] = useState<string>("")
     const [arrival, setArrival] = useState<string>("")
     const [departure, setDeparture] = useState<string>("")
-    const [adults, setAdults] = useState<number>(0)
-    const [children, setChildren] = useState<number>(0)
+    const [adults, setAdults] = useState<string>("")
+    const [children, setChildren] = useState<string>("")
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
@@ -23,10 +23,10 @@ export default function Form(props: Props) {
         setDeparture(event.target.value)
     }
     function onAdultsInput(event: ChangeEvent<HTMLInputElement>) {
-        setAdults(event.target.valueAsNumber)
+        setAdults(event.target.value)
     }
     function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
-        setChildren(event.target.valueAsNumber)
+        setChildren(event.target.value)
     }
     function addBooking() {
         axios.post("api/booking", {
