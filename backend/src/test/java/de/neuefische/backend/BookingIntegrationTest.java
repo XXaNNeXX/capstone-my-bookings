@@ -32,8 +32,8 @@ class BookingIntegrationTest {
                                 "name": "Test",
                                 "arrival": "01.01.2024",
                                 "departure": "05.01.2024",
-                                "adults": "2",
-                                "children": "0"
+                                "adults": 2,
+                                "children": 0
                             }
                             """))
                 .andExpect(status().isOk())
@@ -42,8 +42,8 @@ class BookingIntegrationTest {
                                                 "name": "Test",
                                                 "arrival": "01.01.2024",
                                                 "departure": "05.01.2024",
-                                                "adults": "2",
-                                                "children": "0"
+                                                "adults": 2,
+                                                "children": 0
                                             }
                                             """))
                 .andExpect(jsonPath("$.id").isNotEmpty());
