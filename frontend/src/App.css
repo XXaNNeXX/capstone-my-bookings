@@ -44,7 +44,7 @@ body {
 
 #home-button, #finance-button {
     background-color: white;
-    color: #74cada;
+    fill: #74cada;
     padding: 0.4em;
     margin: 0.5em;
     height: 1.5em;
@@ -74,7 +74,7 @@ body {
 #fa-circle-xmark {
     margin: 1em 0 0.5em 1em;
     height: 2em;
-    color: #74cada;
+    fill: #74cada;
 }
 
 main {
