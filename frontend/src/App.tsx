@@ -32,11 +32,11 @@ export default function App() {
             </Link>
           </section>
         </header>
-        <Link to={`/bookings/add`}><p>Add Booking</p></Link>
+        <Link to={`/add`}><p>Add Booking</p></Link>
       </div>
 
       <Routes>
-        <Route path="/bookings/add" element={<Form onItemChange={getAllBookings}/>}/>
+        <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
       </Routes>
     </>
   )
