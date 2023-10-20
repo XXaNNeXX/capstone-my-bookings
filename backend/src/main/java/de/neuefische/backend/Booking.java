@@ -5,7 +5,7 @@ public record Booking(
         String name,
         String arrival,
         String departure,
-        String adults,
-        String children
+        Integer adults,
+        Integer children
 ) {
 }

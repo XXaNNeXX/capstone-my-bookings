@@ -3,6 +3,6 @@ export type Booking = {
     name: string,
     arrival: string,
     departure: string,
-    adults: string,
-    children: string
+    adults: number,
+    children: number
 }

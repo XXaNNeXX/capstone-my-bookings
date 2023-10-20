@@ -10,8 +10,8 @@ export default function Form(props: Props) {
     const [name, setName] = useState<string>("")
     const [arrival, setArrival] = useState<string>("")
     const [departure, setDeparture] = useState<string>("")
-    const [adults, setAdults] = useState<string>("")
-    const [children, setChildren] = useState<string>("")
+    const [adults, setAdults] = useState<number>(0)
+    const [children, setChildren] = useState<number>(0)
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
@@ -23,10 +23,10 @@ export default function Form(props: Props) {
         setDeparture(event.target.value)
     }
     function onAdultsInput(event: ChangeEvent<HTMLInputElement>) {
-        setAdults(event.target.value)
+        setAdults(event.target.valueAsNumber)
     }
     function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
-        setChildren(event.target.value)
+        setChildren(event.target.valueAsNumber)
     }
     function addBooking() {
         axios.post("api/booking", {
@@ -57,9 +57,9 @@ export default function Form(props: Props) {
                     <label htmlFor="input-departure">Departure</label>
                     <input type="text" id="input-departure" name="departure" value={departure} onChange={onDepartureInput}/>
                     <label htmlFor="input-adults"># Adults</label>
-                    <input type="text" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
+                    <input type="number" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
                     <label htmlFor="input-children"># Children</label>
-                    <input type="text" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
+                    <input type="number" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
                 </form>
                 <br/>
                 <br/>
