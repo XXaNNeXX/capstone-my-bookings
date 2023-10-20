@@ -57,9 +57,9 @@ export default function Form(props: Props) {
                     <label htmlFor="input-departure">Departure</label>
                     <input type="text" id="input-departure" name="departure" value={departure} onChange={onDepartureInput}/>
                     <label htmlFor="input-adults"># Adults</label>
-                    <input type="number" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
+                    <input type="text" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
                     <label htmlFor="input-children"># Children</label>
-                    <input type="number" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
+                    <input type="text" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
                 </form>
                 <br/>
                 <br/>
