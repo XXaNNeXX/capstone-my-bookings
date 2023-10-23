@@ -66,14 +66,14 @@ export default function Form(props: Props) {
                 <br/>
                 <br/>
             </main>
-            <footer className="footer">
+            <div className="footer">
                 <div>
                     <button onClick={addBooking}>Save</button>
                 </div>
                 <div>
                     <button>Delete</button>
                 </div>
-            </footer>
+            </div>
         </div>
     )
 }

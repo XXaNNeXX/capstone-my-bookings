@@ -20,14 +20,14 @@ export default function CardList(props: Props) {
             {
                 props.bookingList.map(item => <Card key={item.id} booking={item}/>)
             }
-            <footer className="footer">
+            <div className="footer">
                 <div className="footer-text-left">
                     <p>Total bookings:</p>
                 </div>
                 <div className="footer-text-right">
                     <p id="sum-bookings">4</p>
                 </div>
-            </footer>
+            </div>
         </>
     )
 }

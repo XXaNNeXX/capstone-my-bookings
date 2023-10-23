@@ -201,7 +201,7 @@ h3 {
     margin: 0 3em 10em 3em;
 }
 
-footer {
+.footer {
     background-color: #74cada;
     display: flex;
     flex-direction: row;
