@@ -22,4 +22,6 @@ class BookingServiceTest {
         Booking expected = new Booking("1","Me", "01.01.2024", "05.01.2024", 2, 2);
         assertEquals(expected, actual);
     }
+
+
 }

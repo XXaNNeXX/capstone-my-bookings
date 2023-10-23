@@ -1,12 +1,16 @@
 import './App.css'
 import {Link, Route, Routes} from "react-router-dom";
 import Form from "./Form.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {Booking} from "./Booking.tsx";
+import CardList from "./CardList.tsx";
 
 export default function App() {
 
-  const [bookings, setBookings] = useState()
+  const [bookings, setBookings] = useState<Booking[]>([])
+
+  useEffect(getAllBookings, [])
 
   function getAllBookings() {
     axios.get("api/booking")
@@ -32,10 +36,11 @@ export default function App() {
             </Link>
           </section>
         </header>
-        <Link to={`/add`}><p>Add Booking</p></Link>
+        {/*<Link to={`/add`}><p>Add Booking</p></Link>*/}
       </div>
 
       <Routes>
+        <Route path="/" element={<CardList bookingList={bookings}/>}/>
         <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
       </Routes>
     </>
