@@ -57,6 +57,9 @@ body {
     justify-content: space-around;
     align-items: center;
     background-color: white;
+    position: sticky;
+    top: 5em;
+    z-index: 2;
 }
 
 #my-bookings-headline, #new-booking {
@@ -69,6 +72,7 @@ body {
     margin-bottom: 0.5em;
     margin-top: 1em;
     height: 2em;
+    fill: #74cada;
 }
 
 #fa-circle-xmark {
@@ -99,6 +103,7 @@ main {
     flex-direction: column;
     justify-content: space-around;
     row-gap: 0.3em;
+    font-weight: bold;
 }
 
 .homepage-name {
@@ -237,4 +242,11 @@ button {
     border: 2px solid lightgray;
     height: 2.5em;
     width: 8em;
+}
+
+#fa-user,
+#fa-calendar-days,
+#fa-person-dress,
+#fa-baby {
+    fill: #74cada;
 }
