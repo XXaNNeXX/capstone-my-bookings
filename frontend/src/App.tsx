@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {Booking} from "./Booking.tsx";
 import CardList from "./CardList.tsx";
+import ChangeCard from "./ChangeCard.tsx";
 
 export default function App() {
 
@@ -42,7 +43,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CardList bookingList={bookings}/>}/>
           <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
-          <Route path="/:id/edit"/>
+          <Route path="/:id/edit" element={<ChangeCard bookingList={bookings} onItemChange={getAllBookings}/>}/>
         </Routes>
       </>
   )

@@ -1,11 +1,38 @@
 import {Booking} from "./Booking.tsx";
 import {Link} from "react-router-dom";
+import {ChangeEvent, MouseEventHandler, useEffect, useState} from "react";
 
 type Props = {
-    booking: Booking
+    booking: Booking,
+    onItemChange: (booking: Booking) => void
 }
 
 export default function EditCard(props: Props) {
+
+    const [booking, setBooking] = useState<Booking>(props.booking);
+
+    useEffect(() => {setBooking(props.booking)}, [props.booking])
+
+    function onNameInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, name: event.target.value });
+    }
+    function onArrivalInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, arrival: event.target.value });
+    }
+    function onDepartureInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, departure: event.target.value });
+    }
+    function onAdultsInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, adults: parseInt(event.target.value, 10) });
+    }
+    function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, children: parseInt(event.target.value, 10) });
+    }
+
+    const onSave: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+        props.onItemChange(booking);
+    }
 
     return (
 
@@ -19,15 +46,15 @@ export default function EditCard(props: Props) {
         <main>
         <form className="form">
             <label htmlFor="input-name">Name</label>
-            <input type="text" id="input-name" name="name" value={props.booking.name} onChange={onNameInput}/>
+            <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
             <label htmlFor="input-arrival">Arrival</label>
-            <input type="text" id="input-arrival" name="arrival" value={props.booking.arrival} onChange={onArrivalInput}/>
+            <input type="text" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
             <label htmlFor="input-departure">Departure</label>
-            <input type="text" id="input-departure" name="departure" value={props.booking.departure} onChange={onDepartureInput}/>
+            <input type="text" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
             <label htmlFor="input-adults"># Adults</label>
-            <input type="number" id="input-adults" name="adults" value={props.booking.adults} onChange={onAdultsInput}/>
+            <input type="number" id="input-adults" name="adults" value={booking.adults} onChange={onAdultsInput}/>
             <label htmlFor="input-children"># Children</label>
-            <input type="number" id="input-children" name="children" value={props.booking.children} onChange={onChildrenInput}/>
+            <input type="number" id="input-children" name="children" value={booking.children} onChange={onChildrenInput}/>
         </form>
         <br/>
         <br/>
@@ -36,7 +63,7 @@ export default function EditCard(props: Props) {
         </main>
         <div className="footer">
             <div>
-                <button onClick={addBooking}>Save</button>
+                <button onClick={onSave}>Save</button>
             </div>
             <div>
                 <button>Delete</button>
