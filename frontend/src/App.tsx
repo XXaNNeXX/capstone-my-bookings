@@ -42,6 +42,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CardList bookingList={bookings}/>}/>
           <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
+          <Route path="/:id/edit"/>
         </Routes>
       </>
   )

@@ -70,9 +70,6 @@ export default function Form(props: Props) {
                 <div>
                     <button onClick={addBooking}>Save</button>
                 </div>
-                <div>
-                    <button>Delete</button>
-                </div>
             </div>
         </div>
     )
