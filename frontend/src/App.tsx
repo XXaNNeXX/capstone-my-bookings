@@ -19,6 +19,7 @@ export default function App() {
   }
 
   return (
+
         <>
           <div className="top-section">
             <header className="header">
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
         </Routes>
       </>
+
   )
 }
 
