@@ -13,12 +13,17 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
-    Booking postBooking(@RequestBody Booking booking) {
+    public Booking postBooking(@RequestBody Booking booking) {
         return bookingService.addBooking(booking);
     }
 
     @GetMapping
-    List<Booking> getAllBookings() {
+    public List<Booking> getAllBookings() {
         return bookingService.getAllBookings();
+    }
+
+    @PutMapping("/{id}")
+    public Booking editBooking(@PathVariable String id, @RequestBody Booking booking) {
+        return bookingService.updateBooking(id, booking);
     }
 }
