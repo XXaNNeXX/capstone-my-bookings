@@ -80,4 +80,34 @@ class BookingIntegrationTest {
                         """
                 ));
     }
+
+    @Test
+    @DirtiesContext
+    void updateBooking_expectSuccessfulPut() throws Exception {
+        bookingRepository.save(new Booking("1","Guest #1","03.03.2024","06.03.2024",2, 0));
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/booking/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                    {
+                                        "id": "1",
+                                        "name": "Guest #1",
+                                        "arrival": "04.03.2024",
+                                        "departure": "07.03.2024",
+                                        "adults": 2,
+                                        "children": 2
+                                    }
+                                    """))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                                            {
+                                                "id": "1",
+                                                "name": "Guest #1",
+                                                "arrival": "04.03.2024",
+                                                "departure": "07.03.2024",
+                                                "adults": 2,
+                                                "children": 2
+                                            }
+                                            """));
+    }
 }

@@ -38,4 +38,20 @@ class BookingServiceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    void changeBooking() {
+        String id = "1";
+        Booking booking3 = new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
+
+        when(bookingRepository.save(booking3))
+                .thenReturn(new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0));
+
+        Booking actual = bookingService.updateBooking(id, booking3);
+
+        verify(bookingRepository).save(booking3);
+        Booking expected = booking3;
+        assertEquals(expected, actual);
+
+    }
 }
