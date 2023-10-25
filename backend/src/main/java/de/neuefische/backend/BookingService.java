@@ -18,4 +18,11 @@ public class BookingService {
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
+
+    public Booking updateBooking(String id, Booking booking) {
+        if(!id.equals(booking.id())) {
+            throw new IllegalArgumentException("Wrong Booking ID!");
+        }
+        return bookingRepository.save(booking);
+    }
 }

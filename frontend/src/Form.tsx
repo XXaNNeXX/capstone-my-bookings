@@ -29,6 +29,11 @@ export default function Form(props: Props) {
         setChildren(event.target.valueAsNumber)
     }
     function addBooking() {
+        setName("")
+        setArrival("")
+        setDeparture("")
+        setAdults(0)
+        setChildren(0)
         axios.post("api/booking", {
             name: name,
             arrival: arrival,
@@ -37,6 +42,9 @@ export default function Form(props: Props) {
             children: children
         })
             .then(props.onItemChange)
+            .catch(reason => {
+                console.error(reason)
+            })
     }
 
     return (
@@ -69,9 +77,6 @@ export default function Form(props: Props) {
             <div className="footer">
                 <div>
                     <button onClick={addBooking}>Save</button>
-                </div>
-                <div>
-                    <button>Delete</button>
                 </div>
             </div>
         </div>
