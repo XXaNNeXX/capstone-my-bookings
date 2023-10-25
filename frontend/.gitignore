@@ -11,13 +11,13 @@ node_modules
 dist
 dist-ssr
 *.local
+vite.config.ts
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
-./src/vite.config.ts
 *.suo
 *.ntvs*
 *.njsproj
