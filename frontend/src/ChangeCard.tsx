@@ -14,7 +14,7 @@ export default function ChangeCard(props: Props) {
     const filteredById: Booking[] = props.bookingList.filter(item => item.id === id)
 
     function changeBooking(booking: Booking) {
-        axios.put("/api/booking" + booking.id, booking)
+        axios.put("/api/booking/" + booking.id, booking)
             .then(() => {props.onItemChange()})
             .catch(reason => {
                 console.error(reason);
