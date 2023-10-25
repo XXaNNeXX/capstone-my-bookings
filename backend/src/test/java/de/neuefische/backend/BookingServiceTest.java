@@ -13,6 +13,7 @@ class BookingServiceTest {
     BookingService bookingService = new BookingService(bookingRepository);
     Booking newBooking1 = new Booking(null,"Me", "01.01.2024", "05.01.2024", 2, 2);
     Booking newBooking2 = new Booking(null,"Guest #2", "06.01.2024", "10.01.2024", 4, 0);
+    Booking booking3 = new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
 
     @Test
     void addBooking() {
@@ -42,7 +43,6 @@ class BookingServiceTest {
     @Test
     void changeBooking() {
         String id = "1";
-        Booking booking3 = new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
 
         when(bookingRepository.save(booking3))
                 .thenReturn(new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0));
@@ -53,5 +53,17 @@ class BookingServiceTest {
         Booking expected = booking3;
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    void changeBooking_wrongId() {
+        Booking newBooking = new Booking("2", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            bookingService.updateBooking("1", newBooking);
+        });
+
+        assertEquals("Wrong Booking ID!", exception.getMessage());
+        verify(bookingRepository, never()).save(any());
     }
 }
