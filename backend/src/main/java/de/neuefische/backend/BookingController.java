@@ -26,4 +26,9 @@ public class BookingController {
     public Booking editBooking(@PathVariable String id, @RequestBody Booking booking) {
         return bookingService.updateBooking(id, booking);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteBooking(@PathVariable String id) {
+        bookingService.removeBooking(id);
+    }
 }

@@ -5,6 +5,7 @@ import {ChangeEvent, MouseEventHandler, useEffect, useState} from "react";
 type Props = {
     booking: Booking,
     onItemChange: (booking: Booking) => void
+    onDelete: (booking: Booking) => void
 }
 
 export default function EditCard(props: Props) {
@@ -33,6 +34,8 @@ export default function EditCard(props: Props) {
         event.preventDefault();
         props.onItemChange(booking);
     }
+
+    const onDelete = () => props.onDelete(booking)
 
     return (
 
@@ -66,7 +69,7 @@ export default function EditCard(props: Props) {
                 <button onClick={onSave}>Save</button>
             </div>
             <div>
-                <button>Delete</button>
+                <button onClick={onDelete}>Delete</button>
             </div>
         </div>
         </>
