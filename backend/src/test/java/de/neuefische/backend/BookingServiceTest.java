@@ -66,4 +66,11 @@ class BookingServiceTest {
         assertEquals("Wrong Booking ID!", exception.getMessage());
         verify(bookingRepository, never()).save(any());
     }
+
+    @Test
+    void deleteBooking() {
+        bookingService.removeBooking("1");
+
+        verify(bookingRepository).deleteById("1");
+    }
 }
