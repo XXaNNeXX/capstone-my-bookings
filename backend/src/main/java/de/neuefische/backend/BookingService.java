@@ -25,4 +25,8 @@ public class BookingService {
         }
         return bookingRepository.save(booking);
     }
+
+    public void removeBooking(String id) {
+        bookingRepository.deleteById(id);
+    }
 }

@@ -110,4 +110,14 @@ class BookingIntegrationTest {
                                             }
                                             """));
     }
+
+    @Test
+    @DirtiesContext
+    void deleteBooking_expectSuccessfulDelete() throws Exception {
+        bookingRepository.save(new Booking("1","Guest #1","03.03.2024","06.03.2024",2, 0));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/booking/1"))
+                .andExpect(status().isOk());
+    }
+
 }
