@@ -122,6 +122,14 @@ main {
     column-gap: 0.5em;
 }
 
+.box-start-date {
+    margin: 0.4em 0 0.4em 0.4em;
+}
+
+.box-end-date {
+    margin: 0.4em 0.4em 0.4em 0;
+}
+
 .hyphen {
     margin: 0;
 }
@@ -136,6 +144,10 @@ main {
 
 p {
     margin: 0.4em;
+}
+
+a {
+    text-decoration: none;
 }
 
 .form {
@@ -246,7 +258,9 @@ button {
 
 #fa-user,
 #fa-calendar-days,
+#fa-caret-right,
 #fa-person-dress,
-#fa-baby {
+#fa-baby,
+#fa-toilet-paper {
     fill: #74cada;
 }
