@@ -38,7 +38,6 @@ export default function App() {
                 </Link>
               </section>
             </header>
-            {/*<Link to={`/add`}><p>Add Booking</p></Link>*/}
           </div>
 
         <Routes>

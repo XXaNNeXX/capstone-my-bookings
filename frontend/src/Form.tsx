@@ -61,9 +61,9 @@ export default function Form(props: Props) {
                     <label htmlFor="input-name">Name</label>
                     <input type="text" id="input-name" name="name" value={name} onChange={onNameInput}/>
                     <label htmlFor="input-arrival">Arrival</label>
-                    <input type="text" id="input-arrival" name="arrival" value={arrival} onChange={onArrivalInput}/>
+                    <input type="date" id="input-arrival" name="arrival" value={arrival} onChange={onArrivalInput}/>
                     <label htmlFor="input-departure">Departure</label>
-                    <input type="text" id="input-departure" name="departure" value={departure} onChange={onDepartureInput}/>
+                    <input type="date" id="input-departure" name="departure" value={departure} onChange={onDepartureInput}/>
                     <label htmlFor="input-adults"># Adults</label>
                     <input type="number" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
                     <label htmlFor="input-children"># Children</label>

@@ -51,9 +51,9 @@ export default function EditCard(props: Props) {
             <label htmlFor="input-name">Name</label>
             <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
             <label htmlFor="input-arrival">Arrival</label>
-            <input type="text" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
+            <input type="date" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
             <label htmlFor="input-departure">Departure</label>
-            <input type="text" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
+            <input type="date" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
             <label htmlFor="input-adults"># Adults</label>
             <input type="number" id="input-adults" name="adults" value={booking.adults} onChange={onAdultsInput}/>
             <label htmlFor="input-children"># Children</label>

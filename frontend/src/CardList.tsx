@@ -8,6 +8,8 @@ type Props = {
 
 export default function CardList(props: Props) {
 
+    const sorted= props.bookingList.slice().sort((a,b) => new Date(a.arrival).getTime() - new Date(b.arrival).getTime())
+
     return (
 
         <>
@@ -18,14 +20,14 @@ export default function CardList(props: Props) {
                 </Link>
             </section>
             {
-                props.bookingList.map(item => <Card key={item.id} booking={item}/>)
+                sorted.map(item => <Card key={item.id} booking={item}/>)
             }
             <div className="footer">
                 <div className="footer-text-left">
                     <p>Total bookings:</p>
                 </div>
                 <div className="footer-text-right">
-                    <p id="sum-bookings">4</p>
+                    <p id="sum-bookings">{props.bookingList.length}</p>
                 </div>
             </div>
         </>

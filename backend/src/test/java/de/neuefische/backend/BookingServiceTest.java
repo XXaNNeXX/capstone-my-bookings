@@ -2,6 +2,8 @@ package de.neuefische.backend;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,19 +13,23 @@ class BookingServiceTest {
 
     BookingRepository bookingRepository = mock(BookingRepository.class);
     BookingService bookingService = new BookingService(bookingRepository);
-    Booking newBooking1 = new Booking(null,"Me", "01.01.2024", "05.01.2024", 2, 2);
-    Booking newBooking2 = new Booking(null,"Guest #2", "06.01.2024", "10.01.2024", 4, 0);
-    Booking booking3 = new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
+    LocalDate arrival1 = LocalDate.parse("01.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    LocalDate departure1 = LocalDate.parse("05.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    LocalDate arrival2 = LocalDate.parse("06.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    LocalDate departure2 = LocalDate.parse("10.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    Booking newBooking1 = new Booking(null,"Me", arrival1, departure1, 2, 2);
+    Booking newBooking2 = new Booking(null,"Guest #2", arrival2, departure2, 4, 0);
+    Booking booking3 = new Booking("1", "Guest #3", arrival2, departure2, 4, 0);
 
     @Test
     void addBooking() {
         when(bookingRepository.save(newBooking1))
-                .thenReturn(new Booking("1","Me", "01.01.2024", "05.01.2024", 2, 2));
+                .thenReturn(new Booking("1","Me", arrival1, departure1, 2, 2));
 
         Booking actual = bookingService.addBooking(newBooking1);
 
         verify(bookingRepository).save(newBooking1);
-        Booking expected = new Booking("1","Me", "01.01.2024", "05.01.2024", 2, 2);
+        Booking expected = new Booking("1","Me", arrival1, departure1, 2, 2);
         assertEquals(expected, actual);
     }
 
@@ -45,7 +51,7 @@ class BookingServiceTest {
         String id = "1";
 
         when(bookingRepository.save(booking3))
-                .thenReturn(new Booking("1", "Guest #3", "06.01.2024", "10.01.2024", 4, 0));
+                .thenReturn(new Booking("1", "Guest #3", arrival2, departure2, 4, 0));
 
         Booking actual = bookingService.updateBooking(id, booking3);
 
@@ -57,7 +63,7 @@ class BookingServiceTest {
 
     @Test
     void changeBooking_wrongId() {
-        Booking newBooking = new Booking("2", "Guest #3", "06.01.2024", "10.01.2024", 4, 0);
+        Booking newBooking = new Booking("2", "Guest #3", arrival2, departure2, 4, 0);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             bookingService.updateBooking("1", newBooking);
