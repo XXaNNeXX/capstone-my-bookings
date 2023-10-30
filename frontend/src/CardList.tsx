@@ -8,7 +8,7 @@ type Props = {
 
 export default function CardList(props: Props) {
 
-    const sorted= props.bookingList.slice().sort((a,b) => new Date(a.arrival).getTime() - new Date(b.arrival).getTime())
+    const sorted: Booking[] = props.bookingList.slice().sort((a: Booking,b: Booking) => new Date(a.arrival).getTime() - new Date(b.arrival).getTime())
 
     return (
 
