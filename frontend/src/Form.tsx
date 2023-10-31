@@ -12,6 +12,15 @@ export default function Form(props: Props) {
     const [departure, setDeparture] = useState<string>("")
     const [adults, setAdults] = useState<number>(0)
     const [children, setChildren] = useState<number>(0)
+    const [errorMessageName, setErrorMessageName] = useState<string>("")
+    const [errorMessageArrival, setErrorMessageArrival] = useState<string>("")
+    const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
+    const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
+    const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
+
+    const today = new Date()
+    const arrivalDate = new Date(arrival)
+    const departureDate = new Date(departure)
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
@@ -29,22 +38,39 @@ export default function Form(props: Props) {
         setChildren(event.target.valueAsNumber)
     }
     function addBooking() {
-        setName("")
-        setArrival("")
-        setDeparture("")
-        setAdults(0)
-        setChildren(0)
-        axios.post("api/booking", {
-            name: name,
-            arrival: arrival,
-            departure: departure,
-            adults: adults,
-            children: children
-        })
-            .then(props.onItemChange)
-            .catch(reason => {
-                console.error(reason)
+        if(name.trim() === "") {
+            setErrorMessageName("Please enter a name")
+        } else if(arrival.trim() === "" || arrivalDate <= today) {
+            setErrorMessageArrival("Please enter a valid date")
+        } else if(departure.trim() === "" || arrivalDate >= departureDate || departureDate <= today) {
+            setErrorMessageDeparture("Please enter a valid date")
+        } else if(adults < 1 || adults > 4) {
+            setErrorMessageAdults("Please enter a valid number")
+        } else if(children < 0 || children > 3) {
+            setErrorMessageChildren("Please enter a valid number")
+        } else {
+            setName("")
+            setErrorMessageName("")
+            setArrival("")
+            setErrorMessageArrival("")
+            setDeparture("")
+            setErrorMessageDeparture("")
+            setAdults(0)
+            setErrorMessageAdults("")
+            setChildren(0)
+            setErrorMessageChildren("")
+            axios.post("api/booking", {
+                name: name,
+                arrival: arrival,
+                departure: departure,
+                adults: adults,
+                children: children
             })
+                .then(props.onItemChange)
+                .catch(reason => {
+                    console.error(reason)
+                })
+        }
     }
 
     return (
@@ -60,14 +86,19 @@ export default function Form(props: Props) {
                 <form className="form">
                     <label htmlFor="input-name">Name</label>
                     <input type="text" id="input-name" name="name" value={name} onChange={onNameInput}/>
+                    {errorMessageName && <p className="error-message">{errorMessageName}</p>}
                     <label htmlFor="input-arrival">Arrival</label>
                     <input type="date" id="input-arrival" name="arrival" value={arrival} onChange={onArrivalInput}/>
+                    {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
                     <label htmlFor="input-departure">Departure</label>
                     <input type="date" id="input-departure" name="departure" value={departure} onChange={onDepartureInput}/>
+                    {errorMessageDeparture && <p className="error-message">{errorMessageDeparture}</p>}
                     <label htmlFor="input-adults"># Adults</label>
                     <input type="number" id="input-adults" name="adults" value={adults} onChange={onAdultsInput}/>
+                    {errorMessageAdults && <p className="error-message">{errorMessageAdults}</p>}
                     <label htmlFor="input-children"># Children</label>
                     <input type="number" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
+                    {errorMessageChildren && <p className="error-message">{errorMessageChildren}</p>}
                 </form>
                 <br/>
                 <br/>

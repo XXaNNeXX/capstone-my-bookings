@@ -264,3 +264,8 @@ button {
 #fa-toilet-paper {
     fill: #74cada;
 }
+
+.error-message {
+    font-size: xx-small;
+    color: red;
+}
