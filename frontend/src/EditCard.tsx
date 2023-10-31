@@ -10,29 +10,88 @@ type Props = {
 
 export default function EditCard(props: Props) {
 
-    const [booking, setBooking] = useState<Booking>(props.booking);
+    const [booking, setBooking] = useState<Booking>(props.booking)
+    const [errorMessageName, setErrorMessageName] = useState<string>("")
+    const [errorMessageArrival, setErrorMessageArrival] = useState<string>("")
+    const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
+    const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
+    const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
 
     useEffect(() => {setBooking(props.booking)}, [props.booking])
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
-        setBooking({ ...booking, name: event.target.value });
+        setBooking({ ...booking, name: event.target.value })
+        validateName(event.target.value)
     }
     function onArrivalInput(event: ChangeEvent<HTMLInputElement>) {
-        setBooking({ ...booking, arrival: event.target.value });
+        setBooking({ ...booking, arrival: event.target.value })
+        validateArrival(event.target.value)
     }
     function onDepartureInput(event: ChangeEvent<HTMLInputElement>) {
-        setBooking({ ...booking, departure: event.target.value });
+        setBooking({ ...booking, departure: event.target.value })
+        validateDeparture(event.target.value, booking.arrival)
     }
     function onAdultsInput(event: ChangeEvent<HTMLInputElement>) {
-        setBooking({ ...booking, adults: parseInt(event.target.value, 10) });
+        setBooking({ ...booking, adults: parseInt(event.target.value, 10) })
+        validateAdults(event.target.valueAsNumber)
     }
     function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
-        setBooking({ ...booking, children: parseInt(event.target.value, 10) });
+        setBooking({ ...booking, children: parseInt(event.target.value, 10) })
+        validateChildren(event.target.valueAsNumber)
     }
 
     const onSave: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        props.onItemChange(booking);
+        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
+            props.onItemChange(booking)
+        }
+    }
+
+    function validateName(name: string) {
+        if(name.trim() === "") {
+            setErrorMessageName("Please enter a name")
+        } else {
+            setErrorMessageName("");
+        }
+    }
+    function validateArrival(arrivalDate: string) {
+            const today = new Date()
+            const arrival = new Date(arrivalDate)
+
+            if(arrival <= today) {
+                setErrorMessageArrival("Please enter a valid date")
+            } else {
+                setErrorMessageArrival("")
+            }
+    }
+
+    function validateDeparture(departureDate: string, arrivalDate: string) {
+        const today = new Date()
+        const departure = new Date(departureDate)
+        const arrival = new Date(arrivalDate)
+
+        if(departure <= today || departure <= arrival) {
+            setErrorMessageArrival("Please enter a valid date")
+        } else {
+            setErrorMessageArrival("")
+            setErrorMessageDeparture("")
+        }
+    }
+
+    function validateAdults(adults: number) {
+        if(adults < 1 || adults > 4) {
+            setErrorMessageAdults("Please enter a valid number")
+        } else {
+            setErrorMessageAdults("")
+        }
+    }
+
+    function validateChildren(children: number) {
+        if(children < 0 || children > 3) {
+            setErrorMessageChildren("Please enter a valid number")
+        } else {
+            setErrorMessageChildren("")
+        }
     }
 
     const onDelete = () => props.onDelete(booking)
@@ -50,14 +109,19 @@ export default function EditCard(props: Props) {
         <form className="form">
             <label htmlFor="input-name">Name</label>
             <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
+            {errorMessageName && <p className="error-message">{errorMessageName}</p>}
             <label htmlFor="input-arrival">Arrival</label>
             <input type="date" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
+            {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
             <label htmlFor="input-departure">Departure</label>
             <input type="date" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
+            {errorMessageDeparture && <p className="error-message">{errorMessageDeparture}</p>}
             <label htmlFor="input-adults"># Adults</label>
             <input type="number" id="input-adults" name="adults" value={booking.adults} onChange={onAdultsInput}/>
+            {errorMessageAdults && <p className="error-message">{errorMessageAdults}</p>}
             <label htmlFor="input-children"># Children</label>
             <input type="number" id="input-children" name="children" value={booking.children} onChange={onChildrenInput}/>
+            {errorMessageChildren && <p className="error-message">{errorMessageChildren}</p>}
         </form>
         <br/>
         <br/>
