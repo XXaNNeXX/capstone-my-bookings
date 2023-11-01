@@ -58,14 +58,14 @@ export default function EditCard(props: Props) {
         }
     }
     function validateArrival(arrivalDate: string) {
-            const today = new Date()
-            const arrival = new Date(arrivalDate)
+        const today = new Date()
+        const arrival = new Date(arrivalDate)
 
-            if(arrival <= today) {
-                setErrorMessageArrival("Please enter a valid date")
-            } else {
-                setErrorMessageArrival("")
-            }
+        if(arrival <= today) {
+            setErrorMessageArrival("Please enter a valid date")
+        } else {
+            setErrorMessageArrival("")
+        }
     }
 
     function validateDeparture(departureDate: string, arrivalDate: string) {
@@ -74,9 +74,8 @@ export default function EditCard(props: Props) {
         const arrival = new Date(arrivalDate)
 
         if(departure <= today || departure <= arrival) {
-            setErrorMessageArrival("Please enter a valid date")
+            setErrorMessageDeparture("Please enter a valid date")
         } else {
-            setErrorMessageArrival("")
             setErrorMessageDeparture("")
         }
     }
@@ -149,7 +148,7 @@ export default function EditCard(props: Props) {
                     <div className="popup-overlay">
                         <div className="popup-delete-content">
                             <p>Do you really want to delete this booking?</p><br/>
-                            <button id="pressed" onClick={onDelete}>Yes</button>
+                            <button id="pressed" onClick={onDelete}>Yes</button><br/><br/>
                             <button onClick={() => setShowDeletePopup(false)}>No</button>
                         </div>
                     </div>
