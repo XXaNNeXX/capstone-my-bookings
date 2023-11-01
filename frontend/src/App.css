@@ -107,6 +107,11 @@ main {
     font-weight: bold;
 }
 
+.box:active {
+    box-shadow: 0 5px gray;
+    transform: translateY(1px);
+}
+
 .homepage-name {
     display: flex;
     flex-direction: row;
