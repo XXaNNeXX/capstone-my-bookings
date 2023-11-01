@@ -64,9 +64,8 @@ export default function Form(props: Props) {
         const arrival = new Date(arrivalDate)
 
         if(departure <= today || departure <= arrival) {
-            setErrorMessageArrival("Please enter a valid date")
+            setErrorMessageDeparture("Please enter a valid date")
         } else {
-            setErrorMessageArrival("")
             setErrorMessageDeparture("")
         }
     }
@@ -89,6 +88,11 @@ export default function Form(props: Props) {
     function addBooking() {
         if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
             setShowSavePopup(false)
+            setName("")
+            setArrival("")
+            setDeparture("")
+            setAdults(0)
+            setChildren(0)
             axios.post("api/booking", {
                 name: name,
                 arrival: arrival,
