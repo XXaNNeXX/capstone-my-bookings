@@ -1,10 +1,13 @@
 export type Booking = {
     id: string,
+    phone: string,
     name: string,
     arrival: string,
     departure: string,
     adults: number,
-    children: number
+    children: number,
+    money: number,
+    extras: string
 }
 
 export function dateFormat(dateStr: string): string {
