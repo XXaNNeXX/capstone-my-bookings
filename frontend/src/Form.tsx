@@ -8,20 +8,27 @@ type Props = {
 export default function Form(props: Props) {
 
     const [name, setName] = useState<string>("")
+    const [phone, setPhone] = useState<string>("")
     const [arrival, setArrival] = useState<string>("")
     const [departure, setDeparture] = useState<string>("")
     const [adults, setAdults] = useState<number>(0)
     const [children, setChildren] = useState<number>(0)
+    const [money, setMoney] = useState<number>(0.00)
+    const [extras, setExtras] = useState<string>("")
     const [errorMessageName, setErrorMessageName] = useState<string>("")
     const [errorMessageArrival, setErrorMessageArrival] = useState<string>("")
     const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
     const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
     const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
+    const [errorMessageMoney, setErrorMessageMoney] = useState<string>("")
     const [showSavePopup, setShowSavePopup] = useState(false)
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
         nameNotEmpty(event.target.value)
+    }
+    function onPhoneInput(event: ChangeEvent<HTMLInputElement>) {
+        setPhone(event.target.value)
     }
     function onArrivalInput(event: ChangeEvent<HTMLInputElement>) {
         setArrival(event.target.value)
@@ -38,6 +45,13 @@ export default function Form(props: Props) {
     function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
         setChildren(event.target.valueAsNumber)
         validChildrenNumber(event.target.valueAsNumber)
+    }
+    function onMoneyInput(event: ChangeEvent<HTMLInputElement>) {
+        setMoney(event.target.valueAsNumber)
+        validMoneyNumber(event.target.valueAsNumber)
+    }
+    function onExtrasInput(event: ChangeEvent<HTMLTextAreaElement>) {
+        setExtras(event.target.value)
     }
 
     function nameNotEmpty(name: string) {
@@ -57,7 +71,6 @@ export default function Form(props: Props) {
             setErrorMessageArrival("")
         }
     }
-
     function validDepartureDate(departureDate: string, arrivalDate: string) {
         const today = new Date()
         const departure = new Date(departureDate)
@@ -69,7 +82,6 @@ export default function Form(props: Props) {
             setErrorMessageDeparture("")
         }
     }
-
     function validAdultsNumber(adults: number) {
         if(adults < 1 || adults > 4) {
             setErrorMessageAdults("Please enter a valid number")
@@ -77,7 +89,6 @@ export default function Form(props: Props) {
             setErrorMessageAdults("")
         }
     }
-
     function validChildrenNumber(children: number) {
         if(children < 0 || children > 3) {
             setErrorMessageChildren("Please enter a valid number")
@@ -85,14 +96,24 @@ export default function Form(props: Props) {
             setErrorMessageChildren("")
         }
     }
+    function validMoneyNumber(money: number) {
+        if(money <= 0) {
+            setErrorMessageMoney("Please enter a valid amount")
+        } else {
+            setErrorMessageMoney("")
+        }
+    }
+
     function addBooking() {
-        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
+        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "" || errorMessageMoney === "") {
             setShowSavePopup(false)
             setName("")
             setArrival("")
             setDeparture("")
             setAdults(0)
             setChildren(0)
+            setMoney(0.00)
+            setExtras("")
             axios.post("api/booking", {
                 name: name,
                 arrival: arrival,
@@ -121,6 +142,8 @@ export default function Form(props: Props) {
                     <label htmlFor="input-name">Name</label>
                     <input type="text" id="input-name" name="name" value={name} onChange={onNameInput}/>
                     {errorMessageName && <p className="error-message">{errorMessageName}</p>}
+                    <label htmlFor="input-phone">Phone</label>
+                    <input type="tel" id="input-phone" value={phone} onChange={onPhoneInput}/>
                     <label htmlFor="input-arrival">Arrival</label>
                     <input type="date" id="input-arrival" name="arrival" value={arrival} onChange={onArrivalInput}/>
                     {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
@@ -133,11 +156,12 @@ export default function Form(props: Props) {
                     <label htmlFor="input-children"># Children</label>
                     <input type="number" id="input-children" name="children" value={children} onChange={onChildrenInput}/>
                     {errorMessageChildren && <p className="error-message">{errorMessageChildren}</p>}
+                    <label htmlFor="input-money">€</label>
+                    <input type="number" id="input-money" value={money} onChange={onMoneyInput}/>
+                    {errorMessageMoney && <p className="error-message">{errorMessageMoney}</p>}
+                    <label htmlFor="input-textarea">Extras</label>
+                    <textarea id="input-textarea" value={extras} onChange={onExtrasInput}></textarea>
                 </form>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
             </main>
             <div className="footer">
                 <div>
@@ -146,7 +170,7 @@ export default function Form(props: Props) {
                         <div className="popup-overlay">
                             <div className="popup-save-content">
                                 <p>Your Booking has been saved</p><br/>
-                                <button id="pressed" onClick={addBooking}>Ok</button>
+                                <button onClick={addBooking}>Ok</button>
                             </div>
                         </div>
                     )}
