@@ -16,6 +16,8 @@ export default function EditCard(props: Props) {
     const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
     const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
     const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
+    const [showDeletePopup, setShowDeletePopup] = useState(false)
+    const [showSavePopup, setShowSavePopup] = useState(false)
 
     useEffect(() => {setBooking(props.booking)}, [props.booking])
 
@@ -43,7 +45,8 @@ export default function EditCard(props: Props) {
     const onSave: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
         if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
-            props.onItemChange(booking)
+            props.onItemChange(booking);
+            setShowSavePopup(false)
         }
     }
 
@@ -55,14 +58,14 @@ export default function EditCard(props: Props) {
         }
     }
     function validateArrival(arrivalDate: string) {
-            const today = new Date()
-            const arrival = new Date(arrivalDate)
+        const today = new Date()
+        const arrival = new Date(arrivalDate)
 
-            if(arrival <= today) {
-                setErrorMessageArrival("Please enter a valid date")
-            } else {
-                setErrorMessageArrival("")
-            }
+        if(arrival <= today) {
+            setErrorMessageArrival("Please enter a valid date")
+        } else {
+            setErrorMessageArrival("")
+        }
     }
 
     function validateDeparture(departureDate: string, arrivalDate: string) {
@@ -71,9 +74,8 @@ export default function EditCard(props: Props) {
         const arrival = new Date(arrivalDate)
 
         if(departure <= today || departure <= arrival) {
-            setErrorMessageArrival("Please enter a valid date")
+            setErrorMessageDeparture("Please enter a valid date")
         } else {
-            setErrorMessageArrival("")
             setErrorMessageDeparture("")
         }
     }
@@ -94,7 +96,7 @@ export default function EditCard(props: Props) {
         }
     }
 
-    const onDelete = () => props.onDelete(booking)
+    const onDelete = () => {props.onDelete(booking); setShowDeletePopup(false)}
 
     return (
 
@@ -130,10 +132,27 @@ export default function EditCard(props: Props) {
         </main>
         <div className="footer">
             <div>
-                <button onClick={onSave}>Save</button>
+                <button onClick={() => setShowSavePopup(true)}>Save</button>
+                {showSavePopup && (
+                    <div className="popup-overlay">
+                        <div className="popup-save-content">
+                            <p>Your Booking has been saved</p><br/>
+                            <button id="pressed" onClick={onSave}>Ok</button>
+                        </div>
+                    </div>
+                )}
             </div>
             <div>
-                <button onClick={onDelete}>Delete</button>
+                <button onClick={() => setShowDeletePopup(true)}>Delete</button>
+                {showDeletePopup && (
+                    <div className="popup-overlay">
+                        <div className="popup-delete-content">
+                            <p>Do you really want to delete this booking?</p><br/>
+                            <button id="pressed" onClick={onDelete}>Yes</button><br/><br/>
+                            <button onClick={() => setShowDeletePopup(false)}>No</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
         </>

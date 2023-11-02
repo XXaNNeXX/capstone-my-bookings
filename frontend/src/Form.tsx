@@ -17,48 +17,82 @@ export default function Form(props: Props) {
     const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
     const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
     const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
-
-    const today = new Date()
-    const arrivalDate = new Date(arrival)
-    const departureDate = new Date(departure)
+    const [showSavePopup, setShowSavePopup] = useState(false)
 
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
+        nameNotEmpty(event.target.value)
     }
     function onArrivalInput(event: ChangeEvent<HTMLInputElement>) {
         setArrival(event.target.value)
+        validArrivalDate(event.target.value)
     }
     function onDepartureInput(event: ChangeEvent<HTMLInputElement>) {
         setDeparture(event.target.value)
+        validDepartureDate(event.target.value, arrival)
     }
     function onAdultsInput(event: ChangeEvent<HTMLInputElement>) {
         setAdults(event.target.valueAsNumber)
+        validAdultsNumber(event.target.valueAsNumber)
     }
     function onChildrenInput(event: ChangeEvent<HTMLInputElement>) {
         setChildren(event.target.valueAsNumber)
+        validChildrenNumber(event.target.valueAsNumber)
     }
-    function addBooking() {
+
+    function nameNotEmpty(name: string) {
         if(name.trim() === "") {
             setErrorMessageName("Please enter a name")
-        } else if(arrival.trim() === "" || arrivalDate <= today) {
+        } else {
+            setErrorMessageName("");
+        }
+    }
+    function validArrivalDate(arrivalDate: string) {
+        const today = new Date()
+        const arrival = new Date(arrivalDate)
+
+        if(arrival <= today) {
             setErrorMessageArrival("Please enter a valid date")
-        } else if(departure.trim() === "" || arrivalDate >= departureDate || departureDate <= today) {
+        } else {
+            setErrorMessageArrival("")
+        }
+    }
+
+    function validDepartureDate(departureDate: string, arrivalDate: string) {
+        const today = new Date()
+        const departure = new Date(departureDate)
+        const arrival = new Date(arrivalDate)
+
+        if(departure <= today || departure <= arrival) {
             setErrorMessageDeparture("Please enter a valid date")
-        } else if(adults < 1 || adults > 4) {
+        } else {
+            setErrorMessageDeparture("")
+        }
+    }
+
+    function validAdultsNumber(adults: number) {
+        if(adults < 1 || adults > 4) {
             setErrorMessageAdults("Please enter a valid number")
-        } else if(children < 0 || children > 3) {
+        } else {
+            setErrorMessageAdults("")
+        }
+    }
+
+    function validChildrenNumber(children: number) {
+        if(children < 0 || children > 3) {
             setErrorMessageChildren("Please enter a valid number")
         } else {
-            setName("")
-            setErrorMessageName("")
-            setArrival("")
-            setErrorMessageArrival("")
-            setDeparture("")
-            setErrorMessageDeparture("")
-            setAdults(0)
-            setErrorMessageAdults("")
-            setChildren(0)
             setErrorMessageChildren("")
+        }
+    }
+    function addBooking() {
+        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
+            setShowSavePopup(false)
+            setName("")
+            setArrival("")
+            setDeparture("")
+            setAdults(0)
+            setChildren(0)
             axios.post("api/booking", {
                 name: name,
                 arrival: arrival,
@@ -107,7 +141,15 @@ export default function Form(props: Props) {
             </main>
             <div className="footer">
                 <div>
-                    <button onClick={addBooking}>Save</button>
+                    <button onClick={() => setShowSavePopup(true)}>Save</button>
+                    {showSavePopup && (
+                        <div className="popup-overlay">
+                            <div className="popup-save-content">
+                                <p>Your Booking has been saved</p><br/>
+                                <button id="pressed" onClick={addBooking}>Ok</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
