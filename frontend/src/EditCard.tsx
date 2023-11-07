@@ -104,7 +104,7 @@ export default function EditCard(props: Props) {
         }
     }
     function validateMoney(money: number) {
-        if(money <= 0) {
+        if(money <= 0 || Number.isNaN(money)) {
             setErrorMessageMoney("Please enter a valid amount")
         } else {
             setErrorMessageMoney("")
@@ -128,7 +128,7 @@ export default function EditCard(props: Props) {
                 <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
                 {errorMessageName && <p className="error-message">{errorMessageName}</p>}
                 <label htmlFor="input-phone">Phone</label>
-                <input type="tel" id="input-phone" value={booking.phone} onChange={onPhoneInput}/>
+                <input type="text" id="input-phone" value={booking.phone} onChange={onPhoneInput}/>
                 <label htmlFor="input-arrival">Arrival</label>
                 <input type="date" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
                 {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
