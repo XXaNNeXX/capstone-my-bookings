@@ -6,6 +6,7 @@ import axios from "axios";
 import {Booking} from "./Booking.tsx";
 import CardList from "./CardList.tsx";
 import ChangeCard from "./ChangeCard.tsx";
+import Financials from "./Financials.tsx";
 
 export default function App() {
 
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/" element={<CardList bookingList={bookings}/>}/>
           <Route path="/add" element={<Form onItemChange={getAllBookings}/>}/>
           <Route path="/:id/edit" element={<ChangeCard bookingList={bookings} onItemChange={getAllBookings}/>}/>
+          <Route path="/financials" element={<Financials bookingList={bookings}/>}/>
         </Routes>
       </>
 
