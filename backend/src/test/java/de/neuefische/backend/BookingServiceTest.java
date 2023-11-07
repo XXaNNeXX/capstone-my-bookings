@@ -17,19 +17,19 @@ class BookingServiceTest {
     LocalDate departure1 = LocalDate.parse("05.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     LocalDate arrival2 = LocalDate.parse("06.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     LocalDate departure2 = LocalDate.parse("10.01.2024", DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    Booking newBooking1 = new Booking(null,"Me", arrival1, departure1, 2, 2);
-    Booking newBooking2 = new Booking(null,"Guest #2", arrival2, departure2, 4, 0);
-    Booking booking3 = new Booking("1", "Guest #3", arrival2, departure2, 4, 0);
+    Booking newBooking1 = new Booking(null,"Me", "123", arrival1, departure1, 2, 2, 100.99, "extra info");
+    Booking newBooking2 = new Booking(null,"Guest #2", "456", arrival2, departure2, 4, 0, 101.88, "extra info");
+    Booking booking3 = new Booking("3", "Guest #3", "789", arrival2, departure2, 4, 0, 102.77, "extra info");
 
     @Test
     void addBooking() {
         when(bookingRepository.save(newBooking1))
-                .thenReturn(new Booking("1","Me", arrival1, departure1, 2, 2));
+                .thenReturn(new Booking("1","Me", "123", arrival1, departure1, 2, 2, 100.99, "extra info"));
 
         Booking actual = bookingService.addBooking(newBooking1);
 
         verify(bookingRepository).save(newBooking1);
-        Booking expected = new Booking("1","Me", arrival1, departure1, 2, 2);
+        Booking expected = new Booking("1","Me", "123", arrival1, departure1, 2, 2, 100.99, "extra info");
         assertEquals(expected, actual);
     }
 
@@ -47,13 +47,11 @@ class BookingServiceTest {
     }
 
     @Test
-    void changeBooking() {
-        String id = "1";
-
+    void changeBooking_correctId() {
         when(bookingRepository.save(booking3))
-                .thenReturn(new Booking("1", "Guest #3", arrival2, departure2, 4, 0));
+                .thenReturn(new Booking("3", "Guest #3", "789", arrival2, departure2, 4, 0, 102.77, "extra info"));
 
-        Booking actual = bookingService.updateBooking(id, booking3);
+        Booking actual = bookingService.updateBooking("3", booking3);
 
         verify(bookingRepository).save(booking3);
         Booking expected = booking3;
@@ -63,7 +61,7 @@ class BookingServiceTest {
 
     @Test
     void changeBooking_wrongId() {
-        Booking newBooking = new Booking("2", "Guest #3", arrival2, departure2, 4, 0);
+        Booking newBooking = new Booking("3", "Guest #3", "789", arrival2, departure2, 4, 0, 102.77, "extra info");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             bookingService.updateBooking("1", newBooking);

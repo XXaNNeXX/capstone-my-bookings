@@ -16,6 +16,7 @@ export default function EditCard(props: Props) {
     const [errorMessageDeparture, setErrorMessageDeparture] = useState<string>("")
     const [errorMessageAdults, setErrorMessageAdults] = useState<string>("")
     const [errorMessageChildren, setErrorMessageChildren] = useState<string>("")
+    const [errorMessageMoney, setErrorMessageMoney] = useState<string>("")
     const [showDeletePopup, setShowDeletePopup] = useState(false)
     const [showSavePopup, setShowSavePopup] = useState(false)
 
@@ -24,6 +25,9 @@ export default function EditCard(props: Props) {
     function onNameInput(event: ChangeEvent<HTMLInputElement>) {
         setBooking({ ...booking, name: event.target.value })
         validateName(event.target.value)
+    }
+    function onPhoneInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, phone: event.target.value })
     }
     function onArrivalInput(event: ChangeEvent<HTMLInputElement>) {
         setBooking({ ...booking, arrival: event.target.value })
@@ -41,10 +45,17 @@ export default function EditCard(props: Props) {
         setBooking({ ...booking, children: parseInt(event.target.value, 10) })
         validateChildren(event.target.valueAsNumber)
     }
+    function onMoneyInput(event: ChangeEvent<HTMLInputElement>) {
+        setBooking({ ...booking, money: parseFloat(event.target.value) })
+        validateMoney(event.target.valueAsNumber)
+    }
+    function onExtrasInput(event: ChangeEvent<HTMLTextAreaElement>) {
+        setBooking({ ...booking, extras: event.target.value })
+    }
 
     const onSave: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "") {
+        if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "" || errorMessageMoney === "") {
             props.onItemChange(booking);
             setShowSavePopup(false)
         }
@@ -67,7 +78,6 @@ export default function EditCard(props: Props) {
             setErrorMessageArrival("")
         }
     }
-
     function validateDeparture(departureDate: string, arrivalDate: string) {
         const today = new Date()
         const departure = new Date(departureDate)
@@ -79,7 +89,6 @@ export default function EditCard(props: Props) {
             setErrorMessageDeparture("")
         }
     }
-
     function validateAdults(adults: number) {
         if(adults < 1 || adults > 4) {
             setErrorMessageAdults("Please enter a valid number")
@@ -87,12 +96,18 @@ export default function EditCard(props: Props) {
             setErrorMessageAdults("")
         }
     }
-
     function validateChildren(children: number) {
         if(children < 0 || children > 3) {
             setErrorMessageChildren("Please enter a valid number")
         } else {
             setErrorMessageChildren("")
+        }
+    }
+    function validateMoney(money: number) {
+        if(money <= 0 || Number.isNaN(money)) {
+            setErrorMessageMoney("Please enter a valid amount")
+        } else {
+            setErrorMessageMoney("")
         }
     }
 
@@ -108,27 +123,30 @@ export default function EditCard(props: Props) {
             </Link>
         </section>
         <main>
-        <form className="form">
-            <label htmlFor="input-name">Name</label>
-            <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
-            {errorMessageName && <p className="error-message">{errorMessageName}</p>}
-            <label htmlFor="input-arrival">Arrival</label>
-            <input type="date" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
-            {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
-            <label htmlFor="input-departure">Departure</label>
-            <input type="date" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
-            {errorMessageDeparture && <p className="error-message">{errorMessageDeparture}</p>}
-            <label htmlFor="input-adults"># Adults</label>
-            <input type="number" id="input-adults" name="adults" value={booking.adults} onChange={onAdultsInput}/>
-            {errorMessageAdults && <p className="error-message">{errorMessageAdults}</p>}
-            <label htmlFor="input-children"># Children</label>
-            <input type="number" id="input-children" name="children" value={booking.children} onChange={onChildrenInput}/>
-            {errorMessageChildren && <p className="error-message">{errorMessageChildren}</p>}
-        </form>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+            <form className="form">
+                <label htmlFor="input-name">Name</label>
+                <input type="text" id="input-name" name="name" value={booking.name} onChange={onNameInput}/>
+                {errorMessageName && <p className="error-message">{errorMessageName}</p>}
+                <label htmlFor="input-phone">Phone</label>
+                <input type="text" id="input-phone" value={booking.phone} onChange={onPhoneInput}/>
+                <label htmlFor="input-arrival">Arrival</label>
+                <input type="date" id="input-arrival" name="arrival" value={booking.arrival} onChange={onArrivalInput}/>
+                {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
+                <label htmlFor="input-departure">Departure</label>
+                <input type="date" id="input-departure" name="departure" value={booking.departure} onChange={onDepartureInput}/>
+                {errorMessageDeparture && <p className="error-message">{errorMessageDeparture}</p>}
+                <label htmlFor="input-adults"># Adults</label>
+                <input type="number" id="input-adults" name="adults" value={booking.adults} onChange={onAdultsInput}/>
+                {errorMessageAdults && <p className="error-message">{errorMessageAdults}</p>}
+                <label htmlFor="input-children"># Children</label>
+                <input type="number" id="input-children" name="children" value={booking.children} onChange={onChildrenInput}/>
+                {errorMessageChildren && <p className="error-message">{errorMessageChildren}</p>}
+                <label htmlFor="input-money">€</label>
+                <input type="number" id="input-money" value={booking.money} onChange={onMoneyInput}/>
+                {errorMessageMoney && <p className="error-message">{errorMessageMoney}</p>}
+                <label htmlFor="input-textarea">Extras</label>
+                <textarea id="input-textarea" value={booking.extras} onChange={onExtrasInput}></textarea>
+            </form>
         </main>
         <div className="footer">
             <div>
@@ -137,7 +155,7 @@ export default function EditCard(props: Props) {
                     <div className="popup-overlay">
                         <div className="popup-save-content">
                             <p>Your Booking has been saved</p><br/>
-                            <button id="pressed" onClick={onSave}>Ok</button>
+                            <button onClick={onSave}>Ok</button>
                         </div>
                     </div>
                 )}
@@ -148,7 +166,7 @@ export default function EditCard(props: Props) {
                     <div className="popup-overlay">
                         <div className="popup-delete-content">
                             <p>Do you really want to delete this booking?</p><br/>
-                            <button id="pressed" onClick={onDelete}>Yes</button><br/><br/>
+                            <button onClick={onDelete}>Yes</button><br/><br/>
                             <button onClick={() => setShowDeletePopup(false)}>No</button>
                         </div>
                     </div>
