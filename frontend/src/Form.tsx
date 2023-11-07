@@ -13,7 +13,7 @@ export default function Form(props: Props) {
     const [departure, setDeparture] = useState<string>("")
     const [adults, setAdults] = useState<number>(0)
     const [children, setChildren] = useState<number>(0)
-    const [money, setMoney] = useState<number>(0.00)
+    const [money, setMoney] = useState<string>("0,00")
     const [extras, setExtras] = useState<string>("")
     const [errorMessageName, setErrorMessageName] = useState<string>("")
     const [errorMessageArrival, setErrorMessageArrival] = useState<string>("")
@@ -47,7 +47,7 @@ export default function Form(props: Props) {
         validChildrenNumber(event.target.valueAsNumber)
     }
     function onMoneyInput(event: ChangeEvent<HTMLInputElement>) {
-        setMoney(event.target.valueAsNumber)
+        setMoney(event.target.value)
         validMoneyNumber(event.target.valueAsNumber)
     }
     function onExtrasInput(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -97,7 +97,7 @@ export default function Form(props: Props) {
         }
     }
     function validMoneyNumber(money: number) {
-        if(money <= 0) {
+        if(money <= 0 || Number.isNaN(money)) {
             setErrorMessageMoney("Please enter a valid amount")
         } else {
             setErrorMessageMoney("")
@@ -108,18 +108,22 @@ export default function Form(props: Props) {
         if(errorMessageName === "" || errorMessageArrival === "" || errorMessageDeparture === "" || errorMessageAdults === "" || errorMessageChildren === "" || errorMessageMoney === "") {
             setShowSavePopup(false)
             setName("")
+            setPhone("")
             setArrival("")
             setDeparture("")
             setAdults(0)
             setChildren(0)
-            setMoney(0.00)
+            setMoney("0,00")
             setExtras("")
             axios.post("api/booking", {
                 name: name,
+                phone: phone,
                 arrival: arrival,
                 departure: departure,
                 adults: adults,
-                children: children
+                children: children,
+                money: parseFloat(money),
+                extras: extras
             })
                 .then(props.onItemChange)
                 .catch(reason => {
@@ -143,7 +147,7 @@ export default function Form(props: Props) {
                     <input type="text" id="input-name" name="name" value={name} onChange={onNameInput}/>
                     {errorMessageName && <p className="error-message">{errorMessageName}</p>}
                     <label htmlFor="input-phone">Phone</label>
-                    <input type="tel" id="input-phone" value={phone} onChange={onPhoneInput}/>
+                    <input type="text" id="input-phone" value={phone} onChange={onPhoneInput}/>
                     <label htmlFor="input-arrival">Arrival</label>
                     <input type="date" id="input-arrival" name="arrival" value={arrival} onChange={onArrivalInput}/>
                     {errorMessageArrival && <p className="error-message">{errorMessageArrival}</p>}
