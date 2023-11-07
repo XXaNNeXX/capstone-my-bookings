@@ -20,6 +20,7 @@ export default function App() {
   }
 
   return (
+
         <>
           <div className="top-section">
             <header className="header">
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/:id/edit" element={<ChangeCard bookingList={bookings} onItemChange={getAllBookings}/>}/>
         </Routes>
       </>
+
   )
 }
 
