@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 type Props = {
     onItemChange: () => void
 }
-export default function Form(props: Props) {
+export default function Form(props: Readonly<Props>) {
 
     const [name, setName] = useState<string>("")
     const [phone, setPhone] = useState<string>("")

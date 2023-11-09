@@ -8,7 +8,7 @@ type Props = {
     onDelete: (booking: Booking) => void
 }
 
-export default function EditCard(props: Props) {
+export default function EditCard(props: Readonly<Props>) {
 
     const [booking, setBooking] = useState<Booking>(props.booking)
     const [errorMessageName, setErrorMessageName] = useState<string>("")

@@ -6,7 +6,7 @@ type Props = {
     bookingList: Booking[]
 }
 
-export default function CardList(props: Props) {
+export default function CardList(props: Readonly<Props>) {
 
     const sorted: Booking[] = props.bookingList.slice().sort((previous: Booking, current: Booking) => new Date(previous.arrival).getTime() - new Date(current.arrival).getTime())
 

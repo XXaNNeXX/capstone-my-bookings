@@ -8,7 +8,7 @@ type Props = {
     onItemChange: () => void
 }
 
-export default function ChangeCard(props: Props) {
+export default function ChangeCard(props: Readonly<Props>) {
 
     const {id} = useParams()
     const filteredById: Booking[] = props.bookingList.filter(item => item.id === id)
@@ -42,8 +42,7 @@ export default function ChangeCard(props: Props) {
 
     return (
 
-        <>
             <EditCard booking={filteredById[0]} onItemChange={updateBooking} onDelete={deleteBooking}/>
-        </>
+
     )
 }

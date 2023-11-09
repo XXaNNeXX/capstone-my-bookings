@@ -5,7 +5,7 @@ type Props = {
     booking: Booking
 }
 
-export default function Card(props: Props) {
+export default function Card(props: Readonly<Props>) {
 
     return (
 
