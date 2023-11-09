@@ -11,7 +11,7 @@ export default function Financials(props: Props) {
         return arrivalYear === currentYear
     })
     const bookingValue: number[] = currentYearBookings.map(item => item.money)
-    const revenue: number = bookingValue.reduce((previous, current) => previous + current, 0)
+    const revenue: number = +(bookingValue.reduce((previous, current) => previous + current, 0)).toFixed(2)
 
 
     const vat: number = +(revenue * 0.07).toFixed(2)
