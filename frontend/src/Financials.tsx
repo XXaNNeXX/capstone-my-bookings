@@ -3,7 +3,7 @@ import {Booking} from "./Booking.tsx";
 type Props = {
     bookingList: Booking[]
 }
-export default function Financials(props: Props) {
+export default function Financials(props: Readonly<Props>) {
 
     const currentYear: number = new Date().getFullYear()
     const currentYearBookings: Booking[] = props.bookingList.filter(item => {
