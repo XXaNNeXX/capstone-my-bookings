@@ -10,10 +10,10 @@ export default function CardList(props: Props) {
 
     const sorted: Booking[] = props.bookingList.slice().sort((previous: Booking, current: Booking) => new Date(previous.arrival).getTime() - new Date(current.arrival).getTime())
 
-    const currentYear: number = new Date().getFullYear();
+    const currentYear: number = new Date().getFullYear()
     const currentYearBookings: Booking[] = sorted.filter(item => {
-        const arrivalYear: number = new Date(item.arrival).getFullYear();
-        return arrivalYear === currentYear;
+        const arrivalYear: number = new Date(item.arrival).getFullYear()
+        return arrivalYear === currentYear
     })
 
     return (

@@ -97,7 +97,7 @@ main {
     border-color: #74cada;
     border-radius: 20px;
     box-shadow: 0 0 20px 1px #74cada;
-    margin: 1em 2em 2em 2em;
+    margin: 1em 3em 1.9em 3em;
     padding: 1.2em;
     color: #393C3C;
     display: flex;
@@ -160,7 +160,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 2.5em 1.5em 2.5em;
+    margin: 0 3em 1.5em 3em;
 }
 
 label {
@@ -194,7 +194,7 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 3em 1.5em 3em;
+    margin: 0 3em 1.5em 4em;
 }
 
 .financials-group {
@@ -216,7 +216,7 @@ h3 {
 }
 
 #empty {
-    margin: 0 3em 10em 3em;
+    margin: 0 3em 12em 3em;
 }
 
 .footer {
@@ -314,4 +314,8 @@ button:active {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#hidden {
+    visibility: hidden;
 }
