@@ -216,7 +216,7 @@ h3 {
 }
 
 #empty {
-    margin: 0 3em 10em 3em;
+    margin: 0 3em 12em 3em;
 }
 
 .footer {
@@ -314,4 +314,8 @@ button:active {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#hidden {
+    visibility: hidden;
 }
